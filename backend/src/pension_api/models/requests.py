@@ -1,4 +1,11 @@
+from enum import Enum
+
 from pydantic import BaseModel, Field, model_validator
+
+
+class ContributionFrequency(str, Enum):
+    MONTHLY = "monthly"
+    ANNUAL = "annual"
 
 
 class PensionCalculationRequest(BaseModel):
@@ -6,7 +13,9 @@ class PensionCalculationRequest(BaseModel):
     retirement_age: int = Field(..., ge=18, le=100)
 
     current_balance: float = Field(..., ge=0)
-    annual_contribution: float = Field(..., ge=0)
+
+    contribution_amount: float = Field(..., ge=0)
+    contribution_frequency: ContributionFrequency
 
     investment_growth_rate: float = Field(..., ge=0, le=100)
 
