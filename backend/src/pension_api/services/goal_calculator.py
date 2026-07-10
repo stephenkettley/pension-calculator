@@ -1,15 +1,13 @@
-from pension_api.models.requests import (
-    RetirementGoalRequest,
-    ContributionFrequency,
-)
-
-from pension_api.models.responses import (
-    RetirementGoalResponse,
-)
-
 from pension_api.core.exceptions import (
     InvalidRetirementAgeException,
     InvalidTargetAmountException,
+)
+from pension_api.models.requests import (
+    ContributionFrequency,
+    RetirementGoalRequest,
+)
+from pension_api.models.responses import (
+    RetirementGoalResponse,
 )
 
 
@@ -44,19 +42,15 @@ def calculate_retirement_goal(
     already_reached_goal = False
 
     if remaining_amount_needed <= 0:
-
         required_monthly_contribution = 0
         already_reached_goal = True
 
     else:
-
         # Handle no investment growth
         if monthly_growth_rate == 0:
-
             required_monthly_contribution = remaining_amount_needed / total_months
 
         else:
-
             contribution_factor = (
                 (1 + monthly_growth_rate) ** total_months - 1
             ) / monthly_growth_rate

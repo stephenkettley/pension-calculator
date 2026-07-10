@@ -4,12 +4,10 @@ from pension_api.models.requests import (
     PensionCalculationRequest,
     RetirementGoalRequest,
 )
-
 from pension_api.models.responses import (
     PensionCalculationResponse,
     RetirementGoalResponse,
 )
-
 from pension_api.services.calculator import calculate_pension
 from pension_api.services.goal_calculator import calculate_retirement_goal
 

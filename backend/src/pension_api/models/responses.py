@@ -1,5 +1,3 @@
-from enum import Enum
-
 from pydantic import BaseModel
 
 from pension_api.models.requests import ContributionFrequency

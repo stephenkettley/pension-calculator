@@ -1,13 +1,12 @@
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
+from pension_api.core.config import settings
 from pension_api.core.exceptions import PensionAPIException
 from pension_api.routers import pension
-
-from pension_api.core.config import settings
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title=settings.app_name,

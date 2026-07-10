@@ -1,9 +1,8 @@
-from pension_api.models.requests import PensionCalculationRequest
-from pension_api.models.responses import PensionCalculationResponse
-
 from pension_api.core.exceptions import (
     InvalidRetirementAgeException,
 )
+from pension_api.models.requests import PensionCalculationRequest
+from pension_api.models.responses import PensionCalculationResponse
 
 
 def calculate_pension(
@@ -38,11 +37,9 @@ def calculate_pension(
 
     # Future value of contributions
     if monthly_growth_rate == 0:
-
         future_value_of_contributions = monthly_contribution * total_months
 
     else:
-
         contribution_growth_factor = (
             (1 + monthly_growth_rate) ** total_months - 1
         ) / monthly_growth_rate
