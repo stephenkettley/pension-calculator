@@ -1,8 +1,11 @@
 from fastapi import APIRouter
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/health",
+    tags=["Health"],
+)
 
 
 @router.get("/")
-def root():
-    return {"message": "Welcome to the Pension Calculator API!"}
+def health_check():
+    return {"status": "healthy"}
