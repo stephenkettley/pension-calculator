@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, model_validator
 
 
 class PensionCalculationRequest(BaseModel):
@@ -9,3 +9,10 @@ class PensionCalculationRequest(BaseModel):
     annual_contribution: float = Field(..., ge=0)
 
     investment_growth_rate: float = Field(..., ge=0, le=100)
+
+    @model_validator(mode="after")
+    def validate_retirement_age(self):
+        if self.retirement_age <= self.current_age:
+            raise ValueError("Retirement age must be greater than current age")
+
+        return self
