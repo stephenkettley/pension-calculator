@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from pension_api.routers.health import router as health_router
+from pension_api.routers.pension import router as pension_router
 
 app = FastAPI(
     title="Pension Calculator API",
@@ -9,3 +10,4 @@ app = FastAPI(
 )
 
 app.include_router(health_router)
+app.include_router(pension_router)
