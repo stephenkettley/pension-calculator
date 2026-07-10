@@ -1,3 +1,4 @@
+from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -6,6 +7,8 @@ class Settings(BaseSettings):
     app_version: str
     debug: bool = False
     environment: str = "production"
+
+    frontend_url: str = Field(default="http://localhost:5173")
 
     model_config = SettingsConfigDict(
         env_file=".env",

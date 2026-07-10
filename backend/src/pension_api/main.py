@@ -7,11 +7,22 @@ from pension_api.core.exceptions import PensionAPIException
 from pension_api.routers import pension
 
 from pension_api.core.config import settings
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     debug=settings.debug,
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        settings.frontend_url,
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
