@@ -1,4 +1,8 @@
+from enum import Enum
+
 from pydantic import BaseModel
+
+from pension_api.models.requests import ContributionFrequency
 
 
 class YearProjection(BaseModel):
@@ -12,3 +16,11 @@ class PensionCalculationResponse(BaseModel):
     total_contributions: float
     total_growth: float
     projection: list[YearProjection]
+
+
+class RetirementGoalResponse(BaseModel):
+    target_amount: float
+    required_contribution: float
+    contribution_frequency: ContributionFrequency
+    years_to_retirement: int
+    already_reached_goal: bool
