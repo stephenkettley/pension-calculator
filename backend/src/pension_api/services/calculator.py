@@ -1,7 +1,10 @@
 from pension_api.core.exceptions import (
     InvalidRetirementAgeException,
 )
-from pension_api.models.requests import PensionCalculationRequest
+from pension_api.models.requests import (
+    ContributionFrequency,
+    PensionCalculationRequest,
+)
 from pension_api.models.responses import PensionCalculationResponse
 
 
@@ -13,20 +16,23 @@ def calculate_pension(
     if pension_data.retirement_age <= pension_data.current_age:
         raise InvalidRetirementAgeException()
 
-    years_to_retirement = pension_data.retirement_age - pension_data.current_age
+    years_to_retirement = (
+        pension_data.retirement_age - pension_data.current_age
+    )
 
     total_months = years_to_retirement * 12
 
     annual_growth_rate = pension_data.annual_growth_rate / 100
 
-    # Convert annual growth rate to effective monthly growth rate
+    # Convert annual growth rate to an effective monthly growth rate
     monthly_growth_rate = ((1 + annual_growth_rate) ** (1 / 12)) - 1
 
     current_balance = pension_data.current_balance
 
     monthly_contribution = (
         pension_data.contribution_amount
-        if pension_data.contribution_frequency == "monthly"
+        if pension_data.contribution_frequency
+        == ContributionFrequency.MONTHLY
         else pension_data.contribution_amount / 12
     )
 
@@ -37,28 +43,26 @@ def calculate_pension(
 
     # Future value of contributions
     if monthly_growth_rate == 0:
-        future_value_of_contributions = monthly_contribution * total_months
-
+        future_value_of_contributions = (
+            monthly_contribution * total_months
+        )
     else:
         contribution_growth_factor = (
-            (1 + monthly_growth_rate) ** total_months - 1
+            ((1 + monthly_growth_rate) ** total_months) - 1
         ) / monthly_growth_rate
 
         future_value_of_contributions = (
             monthly_contribution * contribution_growth_factor
         )
 
-    projected_balance = future_value_of_current_balance + future_value_of_contributions
+    projected_balance = (
+        future_value_of_current_balance
+        + future_value_of_contributions
+    )
 
     return PensionCalculationResponse(
         current_balance=current_balance,
-        projected_balance=round(
-            projected_balance,
-            2,
-        ),
+        projected_balance=round(projected_balance, 2),
         years_to_retirement=years_to_retirement,
-        monthly_contribution=round(
-            monthly_contribution,
-            2,
-        ),
+        monthly_contribution=round(monthly_contribution, 2),
     )
