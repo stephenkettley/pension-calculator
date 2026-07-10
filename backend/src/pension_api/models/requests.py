@@ -19,7 +19,7 @@ class PensionCalculationRequest(BaseModel):
 
     contribution_frequency: ContributionFrequency
 
-    investment_growth_rate: float = Field(
+    annual_growth_rate: float = Field(
         ...,
         ge=0,
         le=100,

@@ -11,7 +11,7 @@ from pension_api.models.responses import (
 )
 
 
-def calculate_retirement_goal(
+def calculate_required_contribution(
     goal_data: RetirementGoalRequest,
 ) -> RetirementGoalResponse:
 

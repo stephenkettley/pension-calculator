@@ -9,7 +9,7 @@ from pension_api.models.responses import (
     RetirementGoalResponse,
 )
 from pension_api.services.calculator import calculate_pension
-from pension_api.services.goal_calculator import calculate_retirement_goal
+from pension_api.services.goal_calculator import calculate_required_contribution
 
 router = APIRouter(
     prefix="/pension",
@@ -34,4 +34,4 @@ def calculate(
 def calculate_retirement_goal_endpoint(
     request: RetirementGoalRequest,
 ):
-    return calculate_retirement_goal(request)
+    return calculate_required_contribution(request)

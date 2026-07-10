@@ -4,7 +4,6 @@ from pension_api.models.requests import ContributionFrequency
 
 
 def test_calculate_pension_success(client):
-    # Arrange
     payload = {
         "current_age": 30,
         "retirement_age": 65,
@@ -14,13 +13,11 @@ def test_calculate_pension_success(client):
         "annual_growth_rate": 8,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/calculate",
+        "/pension/calculate_pension",
         json=payload,
     )
 
-    # Assert
     assert response.status_code == status.HTTP_200_OK
 
     body = response.json()
@@ -33,7 +30,6 @@ def test_calculate_pension_success(client):
 
 
 def test_goal_calculation_success(client):
-    # Arrange
     payload = {
         "current_age": 30,
         "retirement_age": 65,
@@ -43,13 +39,11 @@ def test_goal_calculation_success(client):
         "contribution_frequency": ContributionFrequency.MONTHLY.value,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/goal",
+        "/pension/goal",
         json=payload,
     )
 
-    # Assert
     assert response.status_code == status.HTTP_200_OK
 
     body = response.json()
@@ -62,7 +56,6 @@ def test_goal_calculation_success(client):
 
 
 def test_calculate_pension_invalid_retirement_age(client):
-    # Arrange
     payload = {
         "current_age": 65,
         "retirement_age": 64,
@@ -72,18 +65,15 @@ def test_calculate_pension_invalid_retirement_age(client):
         "annual_growth_rate": 8,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/calculate",
+        "/pension/calculate_pension",
         json=payload,
     )
 
-    # Assert
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 def test_goal_invalid_retirement_age(client):
-    # Arrange
     payload = {
         "current_age": 65,
         "retirement_age": 64,
@@ -93,52 +83,43 @@ def test_goal_invalid_retirement_age(client):
         "contribution_frequency": ContributionFrequency.MONTHLY.value,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/goal",
+        "/pension/goal",
         json=payload,
     )
 
-    # Assert
     assert response.status_code == status.HTTP_400_BAD_REQUEST
 
 
 def test_calculate_pension_missing_required_field(client):
-    # Arrange
     payload = {
         "current_age": 30,
         "retirement_age": 65,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/calculate",
+        "/pension/calculate_pension",
         json=payload,
     )
 
-    # Assert
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
 
 
 def test_goal_missing_required_field(client):
-    # Arrange
     payload = {
         "current_age": 30,
         "retirement_age": 65,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/goal",
+        "/pension/goal",
         json=payload,
     )
 
-    # Assert
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
 
 
 def test_invalid_contribution_frequency(client):
-    # Arrange
     payload = {
         "current_age": 30,
         "retirement_age": 65,
@@ -148,18 +129,15 @@ def test_invalid_contribution_frequency(client):
         "annual_growth_rate": 8,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/calculate",
+        "/pension/calculate_pension",
         json=payload,
     )
 
-    # Assert
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
 
 
 def test_negative_current_balance(client):
-    # Arrange
     payload = {
         "current_age": 30,
         "retirement_age": 65,
@@ -169,18 +147,15 @@ def test_negative_current_balance(client):
         "annual_growth_rate": 8,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/calculate",
+        "/pension/calculate_pension",
         json=payload,
     )
 
-    # Assert
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
 
 
 def test_negative_target_amount(client):
-    # Arrange
     payload = {
         "current_age": 30,
         "retirement_age": 65,
@@ -190,18 +165,15 @@ def test_negative_target_amount(client):
         "contribution_frequency": ContributionFrequency.MONTHLY.value,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/goal",
+        "/pension/goal",
         json=payload,
     )
 
-    # Assert
-    assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
+    assert response.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
 
 
 def test_goal_already_reached(client):
-    # Arrange
     payload = {
         "current_age": 30,
         "retirement_age": 65,
@@ -211,13 +183,11 @@ def test_goal_already_reached(client):
         "contribution_frequency": ContributionFrequency.MONTHLY.value,
     }
 
-    # Act
     response = client.post(
-        "/api/v1/pension/goal",
+        "/pension/goal",
         json=payload,
     )
 
-    # Assert
     assert response.status_code == status.HTTP_200_OK
 
     body = response.json()
@@ -227,8 +197,6 @@ def test_goal_already_reached(client):
 
 
 def test_unknown_route_returns_404(client):
-    # Arrange / Act
-    response = client.get("/api/v1/does-not-exist")
+    response = client.get("/does-not-exist")
 
-    # Assert
     assert response.status_code == status.HTTP_404_NOT_FOUND

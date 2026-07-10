@@ -24,6 +24,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(
+    pension.router,
+)
+
 
 # Custom application/business exceptions
 @app.exception_handler(PensionAPIException)
@@ -97,9 +101,7 @@ async def general_exception_handler(
     )
 
 
-app.include_router(
-    pension.router,
-)
+
 
 
 @app.get("/")
