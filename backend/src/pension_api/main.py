@@ -6,11 +6,12 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 from pension_api.core.exceptions import PensionAPIException
 from pension_api.routers import pension
 
+from pension_api.core.config import settings
 
 app = FastAPI(
-    title="Pension Calculator API",
-    description="API for retirement planning calculations",
-    version="1.0.0",
+    title=settings.app_name,
+    version=settings.app_version,
+    debug=settings.debug,
 )
 
 
