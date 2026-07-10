@@ -1,13 +1,39 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 
-from pension_api.routers.health import router as health_router
-from pension_api.routers.pension import router as pension_router
+from pension_api.core.exceptions import PensionAPIException
+from pension_api.routers import pension
+
 
 app = FastAPI(
     title="Pension Calculator API",
-    description="REST API for retirement planning and pension projections.",
+    description="API for retirement planning calculations",
     version="1.0.0",
 )
 
-app.include_router(health_router)
-app.include_router(pension_router)
+
+@app.exception_handler(PensionAPIException)
+async def pension_exception_handler(
+    request: Request,
+    exc: PensionAPIException,
+):
+    return JSONResponse(
+        status_code=400,
+        content={
+            "success": False,
+            "error": {
+                "code": exc.code,
+                "message": exc.message,
+            },
+        },
+    )
+
+
+app.include_router(
+    pension.router,
+)
+
+
+@app.get("/")
+def root():
+    return {"message": "Welcome to the Pension Calculator API"}

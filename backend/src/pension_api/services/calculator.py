@@ -1,10 +1,8 @@
-from pension_api.models.responses import (
-    PensionCalculationResponse,
-    YearProjection,
-)
-from pension_api.models.requests import (
-    PensionCalculationRequest,
-    ContributionFrequency,
+from pension_api.models.requests import PensionCalculationRequest
+from pension_api.models.responses import PensionCalculationResponse
+
+from pension_api.core.exceptions import (
+    InvalidRetirementAgeException,
 )
 
 
@@ -12,65 +10,58 @@ def calculate_pension(
     pension_data: PensionCalculationRequest,
 ) -> PensionCalculationResponse:
 
+    # Business validation
+    if pension_data.retirement_age <= pension_data.current_age:
+        raise InvalidRetirementAgeException()
+
     years_to_retirement = pension_data.retirement_age - pension_data.current_age
 
     total_months = years_to_retirement * 12
 
-    balance = pension_data.current_balance
+    annual_growth_rate = pension_data.annual_growth_rate / 100
 
-    total_contributions = pension_data.current_balance
+    # Convert annual growth rate to effective monthly growth rate
+    monthly_growth_rate = ((1 + annual_growth_rate) ** (1 / 12)) - 1
 
-    annual_growth_rate = pension_data.investment_growth_rate / 100
+    current_balance = pension_data.current_balance
 
-    monthly_growth_rate = annual_growth_rate / 12
+    monthly_contribution = (
+        pension_data.contribution_amount
+        if pension_data.contribution_frequency == "monthly"
+        else pension_data.contribution_amount / 12
+    )
 
-    projection = []
+    # Future value of current balance
+    future_value_of_current_balance = (
+        current_balance * (1 + monthly_growth_rate) ** total_months
+    )
 
-    current_age = pension_data.current_age
+    # Future value of contributions
+    if monthly_growth_rate == 0:
 
-    for month in range(total_months):
+        future_value_of_contributions = monthly_contribution * total_months
 
-        # Apply monthly investment growth
+    else:
 
-        balance *= 1 + monthly_growth_rate
+        contribution_growth_factor = (
+            (1 + monthly_growth_rate) ** total_months - 1
+        ) / monthly_growth_rate
 
-        # Apply contribution based on frequency
+        future_value_of_contributions = (
+            monthly_contribution * contribution_growth_factor
+        )
 
-        if pension_data.contribution_frequency == ContributionFrequency.MONTHLY:
-
-            balance += pension_data.contribution_amount
-
-            total_contributions += pension_data.contribution_amount
-
-        elif pension_data.contribution_frequency == ContributionFrequency.ANNUAL:
-
-            # Add annual contribution at the end of each year
-
-            if month % 12 == 11:
-
-                balance += pension_data.contribution_amount
-
-                total_contributions += pension_data.contribution_amount
-
-        # Store yearly snapshot for graph
-
-        if month % 12 == 11:
-
-            current_age += 1
-
-            projection.append(
-                YearProjection(
-                    age=current_age,
-                    balance=round(balance, 2),
-                )
-            )
-
-    total_growth = balance - total_contributions
+    projected_balance = future_value_of_current_balance + future_value_of_contributions
 
     return PensionCalculationResponse(
+        current_balance=current_balance,
+        projected_balance=round(
+            projected_balance,
+            2,
+        ),
         years_to_retirement=years_to_retirement,
-        projected_balance=round(balance, 2),
-        total_contributions=round(total_contributions, 2),
-        total_growth=round(total_growth, 2),
-        projection=projection,
+        monthly_contribution=round(
+            monthly_contribution,
+            2,
+        ),
     )

@@ -3,12 +3,26 @@ from pension_api.models.requests import (
     ContributionFrequency,
 )
 
-from pension_api.models.responses import RetirementGoalResponse
+from pension_api.models.responses import (
+    RetirementGoalResponse,
+)
+
+from pension_api.core.exceptions import (
+    InvalidRetirementAgeException,
+    InvalidTargetAmountException,
+)
 
 
 def calculate_retirement_goal(
     goal_data: RetirementGoalRequest,
 ) -> RetirementGoalResponse:
+
+    # Business validation
+    if goal_data.retirement_age <= goal_data.current_age:
+        raise InvalidRetirementAgeException()
+
+    if goal_data.target_amount <= 0:
+        raise InvalidTargetAmountException()
 
     years_to_retirement = goal_data.retirement_age - goal_data.current_age
 
@@ -16,7 +30,7 @@ def calculate_retirement_goal(
 
     annual_growth_rate = goal_data.annual_growth_rate / 100
 
-    # Convert annual growth rate into an effective monthly rate
+    # Convert annual growth rate to effective monthly growth
     monthly_growth_rate = ((1 + annual_growth_rate) ** (1 / 12)) - 1
 
     # Calculate future value of current balance
@@ -24,7 +38,7 @@ def calculate_retirement_goal(
         goal_data.current_balance * (1 + monthly_growth_rate) ** total_months
     )
 
-    # Determine how much is still needed
+    # Determine remaining amount required
     remaining_amount_needed = goal_data.target_amount - future_value_of_current_balance
 
     already_reached_goal = False
@@ -36,7 +50,7 @@ def calculate_retirement_goal(
 
     else:
 
-        # Handle no investment growth scenario
+        # Handle no investment growth
         if monthly_growth_rate == 0:
 
             required_monthly_contribution = remaining_amount_needed / total_months
@@ -51,8 +65,7 @@ def calculate_retirement_goal(
                 remaining_amount_needed / contribution_factor
             )
 
-    # Convert the calculated monthly contribution
-    # into the user's requested frequency
+    # Convert monthly calculation into user preference
     if goal_data.contribution_frequency == ContributionFrequency.MONTHLY:
         required_contribution = required_monthly_contribution
 
