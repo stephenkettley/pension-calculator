@@ -18,6 +18,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         settings.frontend_url,
+        "https://your-vercel-domain.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],

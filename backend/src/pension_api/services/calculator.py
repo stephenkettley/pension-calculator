@@ -1,12 +1,10 @@
 from pension_api.core.exceptions import (
     InvalidRetirementAgeException,
 )
-
 from pension_api.models.requests import (
     ContributionFrequency,
     PensionCalculationRequest,
 )
-
 from pension_api.models.responses import (
     PensionCalculationResponse,
     YearProjection,
