@@ -184,3 +184,38 @@ def test_projection_item_types(
 
     assert isinstance(first_year.age, int)
     assert isinstance(first_year.balance, float)
+    assert isinstance(first_year.contributions, float)
+    assert isinstance(first_year.growth, float)
+
+
+def test_projection_contains_contributions_and_growth(
+    default_pension_request,
+):
+    # Arrange
+    request = default_pension_request.model_copy(deep=True)
+
+    # Act
+    result = calculate_pension(request)
+
+    # Assert
+    first_year = result.projection[0]
+
+    assert first_year.contributions > 0
+    assert first_year.growth >= 0
+
+
+def test_projection_final_year_matches_totals(
+    default_pension_request,
+):
+    # Arrange
+    request = default_pension_request.model_copy(deep=True)
+
+    # Act
+    result = calculate_pension(request)
+
+    final_year = result.projection[-1]
+
+    # Assert
+    assert final_year.balance == result.projected_balance
+    assert final_year.contributions <= result.total_contributions
+    assert final_year.growth <= result.total_growth

@@ -28,6 +28,13 @@ def test_calculate_pension_success(client):
     assert "total_growth" in body
     assert "projection" in body
 
+    first_projection = body["projection"][0]
+
+    assert "age" in first_projection
+    assert "balance" in first_projection
+    assert "contributions" in first_projection
+    assert "growth" in first_projection
+
 
 def test_goal_calculation_success(client):
     payload = {
@@ -194,6 +201,34 @@ def test_goal_already_reached(client):
 
     assert body["already_reached_goal"] is True
     assert body["required_contribution"] == 0
+
+
+def test_projection_contains_required_fields(client):
+    payload = {
+        "current_age": 30,
+        "retirement_age": 65,
+        "current_balance": 100000,
+        "contribution_amount": 2000,
+        "contribution_frequency": ContributionFrequency.MONTHLY.value,
+        "annual_growth_rate": 8,
+    }
+
+    response = client.post(
+        "/pension/calculate_pension",
+        json=payload,
+    )
+
+    body = response.json()
+
+    for year in body["projection"]:
+        assert "age" in year
+        assert "balance" in year
+        assert "contributions" in year
+        assert "growth" in year
+
+        assert year["balance"] >= 0
+        assert year["contributions"] >= 0
+        assert year["growth"] >= 0
 
 
 def test_unknown_route_returns_404(client):

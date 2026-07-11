@@ -36,14 +36,14 @@ def calculate_pension(
         else pension_data.contribution_amount / 12
     )
 
-    # Future value of current balance
+    # Future value calculations
     future_value_of_current_balance = (
         current_balance * (1 + monthly_growth_rate) ** total_months
     )
 
-    # Future value of contributions
     if monthly_growth_rate == 0:
         future_value_of_contributions = monthly_contribution * total_months
+
     else:
         contribution_growth_factor = (
             ((1 + monthly_growth_rate) ** total_months) - 1
@@ -64,21 +64,45 @@ def calculate_pension(
 
     balance = current_balance
 
+    contributions_so_far = 0
+
+    growth_so_far = 0
+
     for year in range(1, years_to_retirement + 1):
         for _ in range(12):
-            balance *= 1 + monthly_growth_rate
+            # Growth generated this month
+            monthly_growth = balance * monthly_growth_rate
+
+            growth_so_far += monthly_growth
+
+            balance += monthly_growth
+
+            # Contribution added this month
             balance += monthly_contribution
+
+            contributions_so_far += monthly_contribution
 
         projection.append(
             YearProjection(
-                age=pension_data.current_age + year,
+                age=(pension_data.current_age + year),
                 balance=round(balance, 2),
+                contributions=round(
+                    contributions_so_far,
+                    2,
+                ),
+                growth=round(
+                    growth_so_far,
+                    2,
+                ),
             )
         )
 
     return PensionCalculationResponse(
         years_to_retirement=years_to_retirement,
-        projected_balance=round(projected_balance, 2),
+        projected_balance=round(
+            projected_balance,
+            2,
+        ),
         total_contributions=round(
             total_contributions,
             2,
