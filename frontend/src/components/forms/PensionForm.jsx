@@ -1,11 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
+import { pensionSchema } from "../../schemas/pensionSchema";
 import Button from "../common/Button";
 import Card from "../common/Card";
 import Input from "../common/Input";
-
-import { pensionSchema } from "../../schemas/pensionSchema";
 
 function PensionForm() {
   const {
@@ -16,10 +15,14 @@ function PensionForm() {
     resolver: zodResolver(pensionSchema),
   });
 
-  const onSubmit = (data) => {
-    console.log(data);
-
-    // We'll call the FastAPI backend here next.
+  const onSubmit = async (data) => {
+    try {
+      const result = await calculatePension(data);
+  
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
