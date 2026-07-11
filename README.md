@@ -1,6 +1,8 @@
 # Pension Pilot
 ## Full-Stack Pension Calculator
 
+Insert logo & slogan here.
+
 1. Assumptions that were made
 2. How AI was used in this project
 3. Time spent
