@@ -2,7 +2,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 export async function calculatePension(data) {
   const response = await fetch(
-    `${API_BASE_URL}/pension/calculate`,
+    `${API_BASE_URL}/pension/calculate_pension`,
     {
       method: "POST",
       headers: {
