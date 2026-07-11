@@ -1,5 +1,4 @@
 # Pension Pilot
-
 ## Full-Stack Pension Calculator
 
 1. Assumptions that were made
