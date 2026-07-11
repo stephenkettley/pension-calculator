@@ -169,6 +169,7 @@ def test_calculate_pension_response_types(
     assert isinstance(result.total_growth, float)
     assert isinstance(result.projection, list)
 
+
 def test_projection_item_types(
     default_pension_request,
 ):
