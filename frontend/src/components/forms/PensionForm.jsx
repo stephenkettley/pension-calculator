@@ -1,93 +1,73 @@
-import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
 
 import Button from "../common/Button";
 import Card from "../common/Card";
 import Input from "../common/Input";
 
+import { pensionSchema } from "../../schemas/pensionSchema";
+
 function PensionForm() {
-  const [formData, setFormData] = useState({
-    currentAge: "",
-    retirementAge: "",
-    currentBalance: "",
-    contributionAmount: "",
-    annualGrowthRate: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(pensionSchema),
   });
 
-  function handleChange(event) {
-    const { name, value } = event.target;
+  const onSubmit = (data) => {
+    console.log(data);
 
-    setFormData((previousData) => ({
-      ...previousData,
-      [name]: value,
-    }));
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-
-    console.log(formData);
-  }
+    // We'll call the FastAPI backend here next.
+  };
 
   return (
     <Card>
       <form
-        onSubmit={handleSubmit}
+        noValidate
+        onSubmit={handleSubmit(onSubmit)}
         className="space-y-6"
       >
         <Input
           label="Current Age"
           name="currentAge"
           type="number"
-          min={18}
-          max={100}
-          value={formData.currentAge}
-          onChange={handleChange}
-          required
+          error={errors.currentAge}
+          {...register("currentAge")}
         />
 
         <Input
           label="Retirement Age"
           name="retirementAge"
           type="number"
-          min={18}
-          max={100}
-          value={formData.retirementAge}
-          onChange={handleChange}
-          required
+          error={errors.retirementAge}
+          {...register("retirementAge")}
         />
 
         <Input
           label="Current Balance"
           name="currentBalance"
           type="number"
-          min={0}
-          step="0.01"
-          value={formData.currentBalance}
-          onChange={handleChange}
-          required
+          error={errors.currentBalance}
+          {...register("currentBalance")}
         />
 
         <Input
-          label="Annual Contributions"
+          label="Annual Contribution"
           name="contributionAmount"
           type="number"
-          min={0}
-          step="0.01"
-          value={formData.contributionAmount}
-          onChange={handleChange}
-          required
+          error={errors.contributionAmount}
+          {...register("contributionAmount")}
         />
 
         <Input
           label="Annual Growth Rate (%)"
           name="annualGrowthRate"
           type="number"
-          min={0}
-          max={100}
           step="0.1"
-          value={formData.annualGrowthRate}
-          onChange={handleChange}
-          required
+          error={errors.annualGrowthRate}
+          {...register("annualGrowthRate")}
         />
 
         <Button type="submit">

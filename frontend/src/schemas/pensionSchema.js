@@ -1,46 +1,62 @@
 import { z } from "zod";
 
+const numberField = (name) =>
+  z
+    .string()
+    .trim()
+    .min(1, `${name} is required.`)
+    .transform((value) => Number(value))
+    .pipe(
+      z.number().finite(`${name} is required.`)
+    );
+
 export const pensionSchema = z
   .object({
-    currentAge: z
-      .number({
-        required_error: "Current age is required.",
-        invalid_type_error: "Current age is required.",
-      })
-      .min(18, "You must be at least 18 years old."),
+    currentAge: numberField("Current age")
+      .pipe(
+        z.number().min(
+          18,
+          "You must be at least 18 years old."
+        )
+      ),
 
-    retirementAge: z
-      .number({
-        required_error: "Retirement age is required.",
-        invalid_type_error: "Retirement age is required.",
-      })
-      .min(18, "Retirement age must be at least 18."),
+    retirementAge: numberField("Retirement age")
+      .pipe(
+        z.number().min(
+          18,
+          "Retirement age must be at least 18."
+        )
+      ),
 
-    currentBalance: z
-      .number({
-        required_error: "Current balance is required.",
-        invalid_type_error: "Current balance is required.",
-      })
-      .min(0, "Current balance cannot be negative."),
+    currentBalance: numberField("Current balance")
+      .pipe(
+        z.number().min(
+          0,
+          "Current balance cannot be negative."
+        )
+      ),
 
-    contributionAmount: z
-      .number({
-        required_error: "Annual contribution is required.",
-        invalid_type_error: "Annual contribution is required.",
-      })
-      .min(0, "Annual contribution cannot be negative."),
+    contributionAmount: numberField("Annual contribution")
+      .pipe(
+        z.number().min(
+          0,
+          "Annual contribution cannot be negative."
+        )
+      ),
 
-    annualGrowthRate: z
-      .number({
-        required_error: "Annual growth rate is required.",
-        invalid_type_error: "Annual growth rate is required.",
-      })
-      .gt(0, "Annual growth rate must be greater than zero."),
+    annualGrowthRate: numberField("Annual growth rate")
+      .pipe(
+        z.number()
+          .gt(0, "Annual growth rate must be greater than zero.")
+          .max(100, "Annual growth rate must be less than or equal to 100.")
+      ),
+ 
   })
   .refine(
     (data) => data.retirementAge > data.currentAge,
     {
       path: ["retirementAge"],
-      message: "Retirement age must be greater than your current age.",
+      message:
+        "Retirement age must be greater than your current age.",
     }
   );
