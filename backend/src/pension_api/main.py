@@ -104,4 +104,4 @@ async def general_exception_handler(
 
 @app.get("/")
 def root():
-    return {"message": "Welcome to the Pension Calculator API"}
+    return {"message": "Welcome to the production pension calculator API."}
