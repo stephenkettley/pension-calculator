@@ -29,7 +29,7 @@ function PensionResults({ data, inputs, onReset }) {
         <div className="rounded-lg border p-5">
 
           <h3 className="text-lg font-semibold mb-4">
-            Your Custom Inputs
+            Your Assumptions
           </h3>
 
 
@@ -96,6 +96,30 @@ function PensionResults({ data, inputs, onReset }) {
 
 
           </div>
+
+
+
+          {/* Recalculate Button */}
+
+          <button
+            onClick={onReset}
+            className="
+              mt-6
+              w-full
+              rounded-lg
+              bg-slate-900
+              px-4
+              py-2
+              text-sm
+              font-semibold
+              text-white
+              transition
+              hover:bg-orange-500
+            "
+          >
+            Recalculate Inputs
+          </button>
+
 
         </div>
 
@@ -192,32 +216,6 @@ function PensionResults({ data, inputs, onReset }) {
           projection={data.projection}
         />
 
-
-      </div>
-
-
-
-
-
-      {/* Reset Button */}
-
-      <div className="mt-8">
-
-        <button
-          onClick={onReset}
-          className="
-            w-full
-            rounded-lg
-            border
-            px-6
-            py-3
-            font-semibold
-            transition
-            hover:bg-slate-100
-          "
-        >
-          Calculate Again
-        </button>
 
       </div>
 
