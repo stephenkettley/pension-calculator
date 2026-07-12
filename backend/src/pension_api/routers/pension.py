@@ -1,3 +1,5 @@
+import logging
+
 from fastapi import APIRouter
 
 from pension_api.models.requests import (
@@ -10,6 +12,8 @@ from pension_api.models.responses import (
 )
 from pension_api.services.calculator import calculate_pension
 from pension_api.services.goal_calculator import calculate_required_contribution
+
+logger = logging.getLogger(__name__)
 
 router = APIRouter(
     prefix="/pension",
@@ -24,7 +28,10 @@ router = APIRouter(
 def calculate(
     request: PensionCalculationRequest,
 ):
-    return calculate_pension(request)
+    logger.info(f"Pension calculation requested: {request.dict()}")
+    result = calculate_pension(request)
+    logger.info(f"Pension calculation completed for request: {request.dict()}")
+    return result
 
 
 @router.post(
@@ -34,4 +41,7 @@ def calculate(
 def calculate_retirement_goal_endpoint(
     request: RetirementGoalRequest,
 ):
-    return calculate_required_contribution(request)
+    logger.info(f"Retirement goal calculation requested: {request.dict()}")
+    result = calculate_required_contribution(request)
+    logger.info(f"Retirement goal calculation completed for request: {request.dict()}")
+    return result

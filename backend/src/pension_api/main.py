@@ -1,3 +1,4 @@
+import logging
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -6,7 +7,17 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from pension_api.core.config import settings
 from pension_api.core.exceptions import PensionAPIException
-from pension_api.routers import pension
+from pension_api.routers import pension, health
+import sys
+import os
+
+
+logging.basicConfig(
+    level=os.getenv("LOG_LEVEL", "INFO"),
+    format="%(asctime)s %(levelname)s %(name)s %(message)s",
+    stream=sys.stdout,
+)
+logger = logging.getLogger(__name__)
 
 app = FastAPI(
     title=settings.app_name,
@@ -24,15 +35,16 @@ app.add_middleware(
 
 app.include_router(
     pension.router,
+    pension.health
 )
 
-
-# Custom application/business exceptions
+# custom pension related exceptions
 @app.exception_handler(PensionAPIException)
 async def pension_exception_handler(
     request: Request,
     exc: PensionAPIException,
 ):
+    logger.error(f"PensionAPIException at {request.url.path}: {exc.code} - {exc.message}")
     return JSONResponse(
         status_code=400,
         content={
@@ -44,13 +56,13 @@ async def pension_exception_handler(
         },
     )
 
-
-# FastAPI/Pydantic validation errors
+# pydantic validation errors
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(
     request: Request,
     exc: RequestValidationError,
 ):
+    logger.warning(f"Validation error at {request.url.path}: {exc.errors()}")
     return JSONResponse(
         status_code=422,
         content={
@@ -62,13 +74,13 @@ async def validation_exception_handler(
         },
     )
 
-
-# HTTP errors (404, 405, etc.)
+# extra http exceptions
 @app.exception_handler(StarletteHTTPException)
 async def http_exception_handler(
     request: Request,
     exc: StarletteHTTPException,
 ):
+    logger.warning(f"HTTPException at {request.url.path}: {exc.status_code} - {exc.detail}")
     return JSONResponse(
         status_code=exc.status_code,
         content={
@@ -80,25 +92,25 @@ async def http_exception_handler(
         },
     )
 
-
-# Catch unexpected errors
+# catch unexpected errors
 @app.exception_handler(Exception)
 async def general_exception_handler(
     request: Request,
     exc: Exception,
 ):
+    logger.exception(f"Unhandled exception at {request.url.path}: {str(exc)}")
     return JSONResponse(
         status_code=500,
         content={
             "success": False,
             "error": {
                 "code": "INTERNAL_SERVER_ERROR",
-                "message": ("An unexpected error occurred"),
+                "message": "An unexpected error occurred",
             },
         },
     )
 
-
 @app.get("/")
 def root():
+    logger.info("Root endpoint accessed")
     return {"message": "Welcome to the production pension calculator API."}
