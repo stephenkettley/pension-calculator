@@ -1,0 +1,11 @@
+@font-face {
+    font-family: "Delight";
+    src: url("../assets/fonts/Delight-VF.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  .font-delight {
+    font-family: "Delight", sans-serif;
+  }

@@ -23,7 +23,7 @@ function Home() {
 
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-slate-100 via-white to-sky-100">
+    <main className="min-h-screen bg-gradient-to-b from-slate-200 via-white to-sky-900">
   
       <div
         className={`mx-auto flex min-h-screen items-center px-6 py-16 ${
@@ -33,16 +33,20 @@ function Home() {
   
         <div className="w-full">
   
-          <h1 className="mb-3 text-center text-5xl font-bold tracking-tight text-slate-900">
-            Pension Calculator
-          </h1>
+        <h1 className="mb-1 text-center text-8xl tracking-tight font-delight">
+          <span className="font-bold text-sky-900">Pension</span>
+          <span className="font-normal text-black">Pearl</span>
+        </h1>
+
+        <h1 className="mb-8 text-center text-3xl tracking-tight font-delight font-normal">Helping you plan your financial freedom.</h1>
   
-          <p className="mb-10 text-center text-lg leading-relaxed text-slate-600">
-            Estimate how your retirement savings could grow over time based on
-            your current balance, annual contributions, and expected investment
-            returns.
-          </p>
-  
+          {!calculation && (
+            <p className="mt-10 mb-10 text-center text-md leading-relaxed text-slate-600">
+              Enter your retirement details to see how your pension could grow over time, including your projected retirement balance, total contributions, and investment growth.
+            </p>
+          )}
+     
+          
           {!calculation ? (
             <PensionForm
               onCalculate={handleCalculation}
@@ -56,9 +60,7 @@ function Home() {
           )}
   
         </div>
-  
       </div>
-  
     </main>
   );
 
