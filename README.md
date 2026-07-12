@@ -124,5 +124,8 @@ If given additional time, I would continue evolving the application from a retir
 - Educational resources integrated into the platform, including curated articles, videos, and external resources to help users better understand retirement planning and investing.
 - A directory of financial advisors or retirement specialists, allowing users to transition from planning to seeking professional guidance where appropriate.
 - Scenario planning tools that let users instantly explore questions such as *"What if I retire two years earlier?"* or *"What if I increase my monthly contribution by R500?"*
+<br><br>
+
+## Additional Screenshots Of Working Application
 - Support for multiple retirement products and investment portfolios, allowing users to model different savings strategies within a single application.
 
