@@ -75,7 +75,7 @@ function PensionForm({ onCalculate }) {
         />
 
         <Button type="submit">
-          Calculate My Pension
+          Calculate My Pension Projections
         </Button>
       </form>
     </Card>

@@ -33,21 +33,20 @@ function Home() {
   
         <div className="w-full">
   
-        <h1 className="mb-3 text-center text-8xl tracking-tight font-delight">
+        <h1 className="mb-1 text-center text-8xl tracking-tight font-delight">
           <span className="font-bold text-sky-900">Pension</span>
           <span className="font-normal text-black">Pearl</span>
         </h1>
 
-        <h1 className="mb-8 mt-2 text-center font-bold text-2xl">Discover the power of long-term wealth</h1>
+        <h1 className="mb-8 text-center text-3xl tracking-tight font-delight font-normal">Helping you plan your financial freedom.</h1>
   
           {!calculation && (
             <p className="mt-10 mb-10 text-center text-md leading-relaxed text-slate-600">
-              Provide your retirement information to receive a detailed forecast of your pension growth, investment performance, and projected retirement fund value.
+              Enter your retirement details to see how your pension could grow over time, including your projected retirement balance, total contributions, and investment growth.
             </p>
           )}
      
           
-  
           {!calculation ? (
             <PensionForm
               onCalculate={handleCalculation}
