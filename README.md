@@ -94,25 +94,36 @@ The project uses GitHub Actions to automate testing and deployment, with the bac
 <br><br>
 
 ## How AI Was Used
-AI was used throughout the project as a productivity, learning, and review tool rather than as a replacement for software engineering knowledge or decision-making. My approach was to first understand the project requirements, design the solution myself, and then use AI to challenge my thinking, accelerate implementation, and improve the overall quality of the project.
+AI was used throughout the project as a productivity and review tool to accelerate development, improve code quality, and challenge implementation decisions. I believe AI is most valuable when it enhances engineering understanding rather than replaces it, helping identify edge cases, suggest improvements, and refine existing solutions.
 
-I believe one of AI's greatest strengths is its ability to **refine engineering work rather than replace engineering thinking**. It can help uncover edge cases, identify potential improvements, suggest alternative implementations, and increase the overall robustness of a solution. Used responsibly, AI acts as another experienced engineer reviewing your work, helping to produce cleaner, more reliable software while still requiring the developer to understand, evaluate, and ultimately own every implementation decision.
+AI was primarily used to:
 
-AI was used to:
+- Challenge design decisions and suggest alternative approaches.
+- Accelerate front-end styling and UI refinement.
+- Generate additional test ideas and assist with writing repetitive tests.
+- Review code for potential improvements and edge cases.
+- Improve exception handling and overall code robustness.
+- Assist with deployment, GitHub Actions, and project configuration.
+- Refine project documentation.
 
-- **Challenge design decisions:** After planning the project architecture and identifying the core functionality, I used AI to question my design choices and suggest alternative approaches. I intentionally rejected ideas that expanded the project beyond the intended scope while adopting simple improvements that added value.
-- **Accelerate front-end development:** Used AI to assist with component styling, layout refinement, and general UI improvements, allowing more time to focus on application architecture and business logic.
-- **Generate and expand test cases:** Used AI to suggest additional backend test scenarios and edge cases that I may not have initially considered, improving overall test coverage.
-- **Assist with writing tests:** Used AI to help implement repetitive test cases more quickly while ensuring I understood and reviewed every generated test before including it in the project.
-- **Review application code:** Used AI to identify potential edge cases, improve readability, simplify implementations where appropriate, and suggest more maintainable solutions.
-- **Improve exception handling:** Used AI to refactor the initial exception handling into a more robust global exception handling approach using FastAPI best practices.
-- **Refine deployment and infrastructure:** Used AI to assist with debugging deployment issues, refining GitHub Actions workflows, improving deployment configuration, and ensuring the frontend and backend deployment pipelines were reliable.
-- **Improve project configuration:** Used AI to review configuration files and suggest cleaner, more maintainable project setup where appropriate.
-- **Polish documentation:** Used AI as an editing and review tool to improve the clarity and completeness of the project documentation.
+The area where AI was used the least was the **backend implementation and business logic**, as this is one of my strongest technical areas. The backend architecture, calculations, validation, and overall design were implemented by myself, with AI serving primarily as a reviewer rather than the author of the solution.
 
-The area where AI contributed the least was the **backend implementation and business logic**. Backend engineering is one of my strongest technical areas, so I intentionally designed and implemented the API, validation, calculations, architecture, and overall backend structure myself. AI was primarily used as a reviewer to challenge implementation decisions and identify possible improvements rather than to generate the core backend solution.
-
-Throughout the project, every AI-generated suggestion was reviewed, understood, and, where appropriate, modified before being incorporated. AI was treated as an engineering assistant that accelerated development and strengthened the overall quality of the project, while all architectural decisions, implementation choices, and final code ownership remained my responsibility.
+All AI-generated suggestions were reviewed, understood, and adapted before being incorporated into the project.
 <br><br>
 
+## What I Would Do With More Time
+If given additional time, I would continue evolving the application from a retirement calculator into a more comprehensive retirement planning platform. Potential future enhancements include:
+
+- AI-powered retirement planning assistance capable of explaining projections, answering retirement-related questions, and suggesting ways to achieve different financial goals.
+- More comprehensive front-end and back-end automated test coverage, including end-to-end browser testing.
+- User authentication and personal accounts.
+- Persistent storage of retirement plans and calculation history.
+- Monthly portfolio tracking, allowing users to record actual balances and contributions over time and compare them against projections.
+- Historical dashboards and long-term retirement progress tracking.
+- Goal comparison tools that allow users to compare multiple retirement scenarios side-by-side.
+- More advanced financial modelling, including salary growth, increasing contribution strategies, employer contributions, investment fees, taxation, configurable inflation, and different investment return assumptions.
+- Educational resources integrated into the platform, including curated articles, videos, and external resources to help users better understand retirement planning and investing.
+- A directory of financial advisors or retirement specialists, allowing users to transition from planning to seeking professional guidance where appropriate.
+- Scenario planning tools that let users instantly explore questions such as *"What if I retire two years earlier?"* or *"What if I increase my monthly contribution by R500?"*
+- Support for multiple retirement products and investment portfolios, allowing users to model different savings strategies within a single application.
 
