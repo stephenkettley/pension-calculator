@@ -10,7 +10,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from pension_api.core.config import settings
 from pension_api.core.exceptions import PensionAPIException
-from pension_api.routers import pension, health
+from pension_api.routers import health, pension
 
 logging.basicConfig(
     level=os.getenv("LOG_LEVEL", "INFO"),
@@ -33,7 +33,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(pension.router, health.router)
+app.include_router(pension.router)
+app.include_router(health.router)
 
 
 # custom pension related exceptions
