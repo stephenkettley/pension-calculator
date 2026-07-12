@@ -1,6 +1,4 @@
-<img width="1500" height="600" alt="pension-pearl-logo" src="https://github.com/user-attachments/assets/bd8474b3-71c5-4930-9bde-ca2da1619ea9" />
-
-# PensionPearl
+<img width="1500" height="600" alt="pension-pearl" src="https://github.com/user-attachments/assets/aea00526-2420-423f-bb19-bc6e33e33c2d" />
 <br><br>
 
 ## Project Overview
