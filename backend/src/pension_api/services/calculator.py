@@ -43,20 +43,14 @@ def calculate_pension(
         f"monthly_contribution={monthly_contribution}"
     )
 
-    future_value_of_current_balance = (
-        current_balance * (1 + monthly_growth_rate) ** total_months
-    )
+    future_value_of_current_balance = current_balance * (1 + monthly_growth_rate) ** total_months
 
     if monthly_growth_rate == 0:
         logger.debug("Growth rate is 0 — using linear contribution sum instead of annuity formula")
         future_value_of_contributions = monthly_contribution * total_months
     else:
-        contribution_growth_factor = (
-            ((1 + monthly_growth_rate) ** total_months) - 1
-        ) / monthly_growth_rate
-        future_value_of_contributions = (
-            monthly_contribution * contribution_growth_factor
-        )
+        contribution_growth_factor = (((1 + monthly_growth_rate) ** total_months) - 1) / monthly_growth_rate
+        future_value_of_contributions = monthly_contribution * contribution_growth_factor
 
     projected_balance = future_value_of_current_balance + future_value_of_contributions
     total_contributions = monthly_contribution * total_months

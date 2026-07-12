@@ -20,8 +20,7 @@ def calculate_required_contribution(
     # Business validation
     if goal_data.retirement_age <= goal_data.current_age:
         logger.warning(
-            f"Invalid retirement age: retirement_age={goal_data.retirement_age} "
-            f"<= current_age={goal_data.current_age}"
+            f"Invalid retirement age: retirement_age={goal_data.retirement_age} <= current_age={goal_data.current_age}"
         )
         raise InvalidRetirementAgeException()
 
@@ -45,9 +44,7 @@ def calculate_required_contribution(
     )
 
     # Calculate future value of current balance
-    future_value_of_current_balance = (
-        goal_data.current_balance * (1 + monthly_growth_rate) ** total_months
-    )
+    future_value_of_current_balance = goal_data.current_balance * (1 + monthly_growth_rate) ** total_months
 
     # Determine remaining amount required
     remaining_amount_needed = goal_data.target_amount - future_value_of_current_balance
@@ -74,13 +71,9 @@ def calculate_required_contribution(
             required_monthly_contribution = remaining_amount_needed / total_months
 
         else:
-            contribution_factor = (
-                (1 + monthly_growth_rate) ** total_months - 1
-            ) / monthly_growth_rate
+            contribution_factor = ((1 + monthly_growth_rate) ** total_months - 1) / monthly_growth_rate
 
-            required_monthly_contribution = (
-                remaining_amount_needed / contribution_factor
-            )
+            required_monthly_contribution = remaining_amount_needed / contribution_factor
 
     # Convert monthly calculation into user preference
     if goal_data.contribution_frequency == ContributionFrequency.MONTHLY:

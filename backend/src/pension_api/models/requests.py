@@ -9,21 +9,23 @@ class ContributionFrequency(str, Enum):
 
 
 class PensionCalculationRequest(BaseModel):
-    current_age: int = Field(..., ge=18, le=100) # there is an assumption made that only people over the age of 18 are using this service
+    current_age: int = Field(
+        ..., ge=18, le=100
+    )  # there is an assumption made that only people over the age of 18 are using this service
 
     retirement_age: int = Field(..., ge=18, le=100)
 
     current_balance: float = Field(..., ge=0)
 
-    contribution_amount: float = Field(..., ge=0) # there is an assumption made that these will be consistent
+    contribution_amount: float = Field(..., ge=0)  # there is an assumption made that these will be consistent
 
-    contribution_frequency: ContributionFrequency 
+    contribution_frequency: ContributionFrequency
 
     annual_growth_rate: float = Field(
         ...,
         ge=0,
         le=100,
-    ) # there is an assumption made that this will be consistent
+    )  # there is an assumption made that this will be consistent
 
 
 class RetirementGoalRequest(BaseModel):

@@ -1,4 +1,7 @@
 import logging
+import os
+import sys
+
 from fastapi import FastAPI, Request
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
@@ -7,10 +10,7 @@ from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from pension_api.core.config import settings
 from pension_api.core.exceptions import PensionAPIException
-from pension_api.routers import pension, health
-import sys
-import os
-
+from pension_api.routers import pension
 
 logging.basicConfig(
     level=os.getenv("LOG_LEVEL", "INFO"),
@@ -33,10 +33,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(
-    pension.router,
-    pension.health
-)
+app.include_router(pension.router, pension.health)
+
 
 # custom pension related exceptions
 @app.exception_handler(PensionAPIException)
@@ -56,6 +54,7 @@ async def pension_exception_handler(
         },
     )
 
+
 # pydantic validation errors
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(
@@ -73,6 +72,7 @@ async def validation_exception_handler(
             },
         },
     )
+
 
 # extra http exceptions
 @app.exception_handler(StarletteHTTPException)
@@ -92,6 +92,7 @@ async def http_exception_handler(
         },
     )
 
+
 # catch unexpected errors
 @app.exception_handler(Exception)
 async def general_exception_handler(
@@ -109,6 +110,7 @@ async def general_exception_handler(
             },
         },
     )
+
 
 @app.get("/")
 def root():
