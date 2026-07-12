@@ -3,4 +3,10 @@
 # PensionPearl
 ## Full-Stack Pension Calculator
 
+## Links To View Project
+Working application: https://pension-calculator-pearl.vercel.app/
+Backend API Documentation: https://pension-calculator-api-b1de48aa93f1.herokuapp.com/docs
+
+### Project Overview
+
 PensionPearl is a simple, yet extremely useful full-stack retirement planning application designed to help users estimate how their pension savings could grow over time based on their current balance, planned contributions, expected investment returns, and retirement timeline.  The application provides an intuitive way to explore future retirement outcomes through interactive visualisations and clear financial summaries, while also presenting an inflation-adjusted estimate of future purchasing power. It is intended as an educational planning tool that helps users understand the long-term impact of saving and investing, rather than providing personalised financial advice or replacing professional financial planning. The primary goal of the project was to demonstrate clean full-stack software engineering principles, thoughtful user experience design, robust validation, automated testing, and a production-ready deployment pipeline.
