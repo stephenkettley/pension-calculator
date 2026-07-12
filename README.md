@@ -81,7 +81,6 @@ The core project requirements were completed within the expected timeframe. The 
 <br><br>
 
 ## Architecture Overview
-
 The application follows a simple client-server architecture.
 
 The React frontend is responsible for collecting user input, performing client-side validation and displaying the calculated results. Requests are sent to the FastAPI backend, where Pydantic validates incoming data before the calculation service performs all business logic.
@@ -92,19 +91,21 @@ The project uses GitHub Actions to automate testing and deployment, with the bac
 <br><br>
 
 ## How AI Was Used
-AI was used throughout the project as a productivity and review tool to accelerate development, improve code quality, and challenge implementation decisions. I believe AI is most valuable when it enhances engineering understanding rather than replaces it, helping identify edge cases, suggest improvements, and refine existing solutions.
+AI was used as a productivity and engineering review tool to accelerate development while ensuring I remained responsible for all implementation decisions.
 
-AI was primarily used to:
+Throughout the project, I used AI to:
 
-- Challenge design decisions and suggest alternative approaches.
+- Brainstorm and challenge design decisions before implementation.
+- Generate configuration snippets and boilerplate where appropriate.
 - Accelerate front-end styling and UI refinement.
-- Generate additional test ideas and assist with writing repetitive tests.
-- Review code for potential improvements and edge cases.
-- Improve exception handling and overall code robustness.
-- Assist with deployment, GitHub Actions, and project configuration.
-- Refine project documentation.
+- Suggest additional test cases and identify potential edge cases.
+- Review code for opportunities to improve readability, robustness, and maintainability.
 
-The area where AI was used the least was the **backend implementation and business logic**, as this is one of my strongest technical areas. The backend architecture, calculations, validation, and overall design were implemented by myself, with AI serving primarily as a reviewer rather than the author of the solution.
+I intentionally **accepted** suggestions that kept the solution simple, production-ready, and aligned with good software engineering principles. I **rejected** suggestions that unnecessarily increased complexity or expanded the project beyond the intended scope of the assessment.
+
+The primary tools used were **ChatGPT** for engineering discussions, code review, configuration assistance, and UI refinement, **Cursor** for selective development assistance, **CodeRabbit** for pull request and code review, and **Playwright** for frontend testing.
+
+The area where AI was used the least was the **backend implementation and business logic**, as this is one of my strongest technical areas. The API design, validation, calculations, and overall backend architecture were implemented by myself, with AI serving primarily as a reviewer rather than the author of the solution.
 
 All AI-generated suggestions were reviewed, understood, and adapted before being incorporated into the project.
 <br><br>
