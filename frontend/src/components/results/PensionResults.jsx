@@ -122,7 +122,7 @@ function PensionResults({ data, inputs, onReset }) {
             </p>
 
             <p className="mt-2 text-sm italic text-gray-500">
-              {contributionPercentage}% of your total balance
+              {contributionPercentage}% of your final pension value
             </p>
           </div>
 
@@ -136,7 +136,7 @@ function PensionResults({ data, inputs, onReset }) {
             </p>
 
             <p className="mt-2 text-sm italic text-gray-500">
-              {growthPercentage}% of your total balance
+              {growthPercentage}% of your final pension value
             </p>
           </div>
         </div>
