@@ -1,6 +1,6 @@
 import pytest
 
-from pension_api.models.requests import ContributionFrequency
+from pension_api.models.requests import ContributionFrequency, PensionCalculationRequest
 from pension_api.services.calculator import calculate_pension
 
 
@@ -180,3 +180,44 @@ def test_projection_final_year_matches_totals(
     assert final_year.balance == result.projected_balance
     assert final_year.contributions <= result.total_contributions
     assert final_year.growth <= result.total_growth
+
+
+def test_calculate_pension_expected_output():
+    request = PensionCalculationRequest(
+        current_age=30,
+        retirement_age=31,
+        current_balance=100000,
+        contribution_amount=1000,
+        contribution_frequency=ContributionFrequency.MONTHLY,
+        annual_growth_rate=12,
+    )
+
+    result = calculate_pension(request)
+
+    assert result.years_to_retirement == 1
+
+    assert result.total_contributions == pytest.approx(
+        12000,
+        rel=0.01,
+    )
+
+    assert result.projected_balance == pytest.approx(
+        124646.50,
+        rel=0.01,
+    )
+
+    assert result.total_growth == pytest.approx(
+        12646.50,
+        rel=0.01,
+    )
+
+    assert len(result.projection) == 1
+
+    final_year = result.projection[0]
+
+    assert final_year.age == 31
+
+    assert final_year.balance == pytest.approx(
+        result.projected_balance,
+        rel=0.01,
+    )
