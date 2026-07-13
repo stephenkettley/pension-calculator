@@ -113,7 +113,7 @@ All AI-generated suggestions were reviewed, understood, and adapted before being
 ## What I Would Do With More Time
 If given additional time, I would continue evolving the application from a retirement calculator into a more comprehensive retirement planning platform. Potential future enhancements include:
 
-- Explored the use of a tool like **Playwright for full end-to-end testing.
+- Explored the use of a tool like **Playwright** for full end-to-end testing.
 - AI-powered retirement planning assistance capable of explaining projections, answering retirement-related questions, and suggesting ways to achieve different financial goals.
 - More comprehensive front-end and back-end automated test coverage, including end-to-end browser testing.
 - User authentication and personal accounts.
