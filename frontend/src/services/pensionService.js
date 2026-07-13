@@ -1,4 +1,5 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL;
+// this will pull in from Vercel for production
+const API_BASE_URL = import.meta.env.VITE_API_URL; 
 
 export async function calculatePension(data) {
   const response = await fetch(

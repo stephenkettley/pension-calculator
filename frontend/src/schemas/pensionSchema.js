@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+// schema 
 const numberField = (name) =>
   z
     .string()
@@ -10,6 +11,7 @@ const numberField = (name) =>
       z.number().finite(`${name} is required.`)
     );
 
+// pension input informatin validation
 export const pensionSchema = z
   .object({
     currentAge: numberField("Current age")

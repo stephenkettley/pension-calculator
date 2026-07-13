@@ -25,29 +25,28 @@ ChartJS.register(
 function PensionGrowthChart({ projection }) {
   const chartData = {
     labels: projection.map((item) => item.age),
-
     datasets: [
       {
         label: "Your Contributions",
         data: projection.map((item) => item.contributions),
 
+        borderColor: "#3b82f6",
+        backgroundColor: "rgba(59, 130, 246, 0.2)",
+
         fill: true,
         tension: 0.4,
         borderWidth: 2,
-
-        borderColor: "#3b82f6",
-        backgroundColor: "rgba(59, 130, 246, 0.2)",
       },
       {
         label: "Investment Growth",
         data: projection.map((item) => item.growth),
 
+        borderColor: "#22c55e",
+        backgroundColor: "rgba(34, 197, 94, 0.2)",
+
         fill: true,
         tension: 0.4,
         borderWidth: 2,
-
-        borderColor: "#22c55e",
-        backgroundColor: "rgba(34, 197, 94, 0.2)",
       },
     ],
   };
@@ -79,13 +78,9 @@ function PensionGrowthChart({ projection }) {
           label: (context) => {
             const point = projection[context.dataIndex];
 
-            if (context.dataset.label === "Your Contributions") {
-              return `Your Contributions: ${formatCurrency(
-                point.contributions
-              )}`;
-            }
-
-            return `Investment Growth: ${formatCurrency(point.growth)}`;
+            return context.dataset.label === "Your Contributions"
+              ? `Your Contributions: ${formatCurrency(point.contributions)}`
+              : `Investment Growth: ${formatCurrency(point.growth)}`;
           },
         },
       },
@@ -94,7 +89,6 @@ function PensionGrowthChart({ projection }) {
     scales: {
       x: {
         stacked: true,
-
         title: {
           display: true,
           text: "Age",
@@ -103,12 +97,10 @@ function PensionGrowthChart({ projection }) {
 
       y: {
         stacked: true,
-
         title: {
           display: true,
           text: "Amount",
         },
-
         ticks: {
           callback: (value) => formatCurrency(value),
         },
