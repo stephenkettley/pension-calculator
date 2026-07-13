@@ -1,5 +1,4 @@
 import { formatCurrency } from "../../utils/formatters";
-
 import PensionGrowthChart from "../charts/PensionGrowthChart";
 import Button from "../common/Button";
 import Card from "../common/Card";
@@ -9,9 +8,14 @@ function PensionResults({ data, inputs, onReset }) {
     return null;
   }
 
-  // very basic percentage calculations
+  const isTargetMode = inputs.useTargetAmount;
+
+  const projectedBalance = isTargetMode
+    ? inputs.pensionValue
+    : data.projected_balance;
+
   const contributionPercentage = Math.round(
-    (data.total_contributions / data.projected_balance) * 100
+    (data.total_contributions / projectedBalance) * 100
   );
 
   const growthPercentage = 100 - contributionPercentage;
@@ -28,7 +32,6 @@ function PensionResults({ data, inputs, onReset }) {
       </p>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-        {/* Inputs */}
         <div className="rounded-lg border p-5">
           <h3 className="mb-4 text-lg font-semibold">
             Your Specified Inputs
@@ -37,12 +40,16 @@ function PensionResults({ data, inputs, onReset }) {
           <div className="space-y-4 text-sm">
             <div>
               <p className="text-gray-500">Current Age</p>
-              <p className="font-semibold">{inputs.currentAge} years</p>
+              <p className="font-semibold">
+                {inputs.currentAge} years
+              </p>
             </div>
 
             <div>
               <p className="text-gray-500">Retirement Age</p>
-              <p className="font-semibold">{inputs.retirementAge} years</p>
+              <p className="font-semibold">
+                {inputs.retirementAge} years
+              </p>
             </div>
 
             <div>
@@ -53,36 +60,45 @@ function PensionResults({ data, inputs, onReset }) {
             </div>
 
             <div>
-              <p className="text-gray-500">Annual Contribution</p>
+              <p className="text-gray-500">
+                {isTargetMode
+                  ? "Target Retirement Amount"
+                  : "Annual Contribution"}
+              </p>
+
               <p className="font-semibold">
-                {formatCurrency(inputs.contributionAmount)}
+                {formatCurrency(inputs.pensionValue)}
               </p>
             </div>
 
             <div>
-              <p className="text-gray-500">Annual Growth Rate</p>
+              <p className="text-gray-500">
+                Annual Growth Rate
+              </p>
+
               <p className="font-semibold">
                 {inputs.annualGrowthRate}%
               </p>
             </div>
           </div>
 
-          <Button
-            onClick={onReset}
-          >
+          <Button onClick={onReset}>
             Adjust Inputs
           </Button>
         </div>
 
-        {/* Results */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:col-span-2">
           <div className="flex min-h-32 flex-col items-center justify-center rounded-xl border p-6 text-center">
             <p className="mb-3 text-base font-medium text-gray-500">
-              Projected Retirement Balance
+              {isTargetMode
+                ? "Required Annual Contribution"
+                : "Projected Retirement Balance"}
             </p>
 
             <p className="text-3xl font-bold text-green-500">
-              {formatCurrency(data.projected_balance)}
+              {isTargetMode
+                ? formatCurrency(data.required_contribution)
+                : formatCurrency(data.projected_balance)}
             </p>
           </div>
 
@@ -126,7 +142,6 @@ function PensionResults({ data, inputs, onReset }) {
         </div>
       </div>
 
-      {/* Graph */}
       <div className="mt-10 rounded-xl border p-6">
         <h3 className="mb-6 text-xl font-semibold">
           Projected Contributions and Investment Growth by Age

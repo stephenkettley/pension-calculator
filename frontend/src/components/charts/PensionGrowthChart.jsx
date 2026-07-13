@@ -22,9 +22,19 @@ ChartJS.register(
   Filler
 );
 
-function PensionGrowthChart({ projection }) {
+export default function PensionGrowthChart({ projection = [] }) {
+  // Don't attempt to render a chart if no projection data exists
+  if (!projection.length) {
+    return (
+      <div className="flex h-96 items-center justify-center rounded-lg border border-dashed text-slate-500">
+        Projection data is not available.
+      </div>
+    );
+  }
+
   const chartData = {
     labels: projection.map((item) => item.age),
+
     datasets: [
       {
         label: "Your Contributions",
@@ -79,8 +89,12 @@ function PensionGrowthChart({ projection }) {
             const point = projection[context.dataIndex];
 
             return context.dataset.label === "Your Contributions"
-              ? `Your Contributions: ${formatCurrency(point.contributions)}`
-              : `Investment Growth: ${formatCurrency(point.growth)}`;
+              ? `Your Contributions: ${formatCurrency(
+                  point.contributions
+                )}`
+              : `Investment Growth: ${formatCurrency(
+                  point.growth
+                )}`;
           },
         },
       },
@@ -89,6 +103,7 @@ function PensionGrowthChart({ projection }) {
     scales: {
       x: {
         stacked: true,
+
         title: {
           display: true,
           text: "Age",
@@ -97,10 +112,12 @@ function PensionGrowthChart({ projection }) {
 
       y: {
         stacked: true,
+
         title: {
           display: true,
           text: "Amount",
         },
+
         ticks: {
           callback: (value) => formatCurrency(value),
         },
@@ -110,9 +127,10 @@ function PensionGrowthChart({ projection }) {
 
   return (
     <div className="h-96 w-full">
-      <Line data={chartData} options={chartOptions} />
+      <Line
+        data={chartData}
+        options={chartOptions}
+      />
     </div>
   );
 }
-
-export default PensionGrowthChart;
