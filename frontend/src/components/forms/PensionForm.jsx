@@ -8,19 +8,30 @@ import Input from "../common/Input";
 import { pensionSchema } from "../../schemas/pensionSchema";
 import { calculatePension } from "../../services/pensionService";
 
-function PensionForm({ onCalculate }) {
+function PensionForm({ onCalculate, defaultValues }) {
+  const formDefaults = defaultValues
+    ? {
+        currentAge: String(defaultValues.currentAge),
+        retirementAge: String(defaultValues.retirementAge),
+        currentBalance: String(defaultValues.currentBalance),
+        contributionAmount: String(defaultValues.contributionAmount),
+        annualGrowthRate: String(defaultValues.annualGrowthRate),
+      }
+    : undefined;
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(pensionSchema),
+    defaultValues: formDefaults,
   });
 
   const onSubmit = async (data) => {
     try {
       const result = await calculatePension(data);
-      onCalculate(data, result);  
+      onCalculate(data, result);
     } catch (error) {
       console.error(error);
     }
