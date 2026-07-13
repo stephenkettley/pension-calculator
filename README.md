@@ -1,4 +1,5 @@
-<img width="1500" height="600" alt="pplogo" src="https://github.com/user-attachments/assets/45685e80-57c4-4976-b807-d69fd36dd01f" />
+<img width="1500" height="600" alt="PensionPearl Logo" src="https://github.com/user-attachments/assets/dfe78a34-f909-4447-b35a-cf4ef2562acd" />
+
 
 
 <br><br>
