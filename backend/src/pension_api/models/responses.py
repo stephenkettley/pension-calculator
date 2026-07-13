@@ -1,7 +1,5 @@
 from pydantic import BaseModel
 
-from pension_api.models.requests import ContributionFrequency
-
 
 class YearProjection(BaseModel):
     age: int
@@ -19,8 +17,8 @@ class PensionCalculationResponse(BaseModel):
 
 
 class RetirementGoalResponse(BaseModel):
-    target_amount: float
-    required_contribution: float
-    contribution_frequency: ContributionFrequency
     years_to_retirement: int
-    already_reached_goal: bool
+    required_contribution: float
+    total_contributions: float
+    total_growth: float
+    projection: list[YearProjection]

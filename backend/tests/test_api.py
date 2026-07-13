@@ -28,13 +28,6 @@ def test_calculate_pension_success(client):
     assert "total_growth" in body
     assert "projection" in body
 
-    first_projection = body["projection"][0]
-
-    assert "age" in first_projection
-    assert "balance" in first_projection
-    assert "contributions" in first_projection
-    assert "growth" in first_projection
-
 
 def test_goal_calculation_success(client):
     payload = {
@@ -43,11 +36,11 @@ def test_goal_calculation_success(client):
         "current_balance": 100000,
         "target_amount": 5000000,
         "annual_growth_rate": 8,
-        "contribution_frequency": ContributionFrequency.MONTHLY.value,
+        "contribution_frequency": ContributionFrequency.ANNUAL.value,
     }
 
     response = client.post(
-        "/pension/goal",
+        "/pension/calculate_contribution",
         json=payload,
     )
 
@@ -55,11 +48,18 @@ def test_goal_calculation_success(client):
 
     body = response.json()
 
-    assert "target_amount" in body
-    assert "required_contribution" in body
-    assert "contribution_frequency" in body
     assert "years_to_retirement" in body
-    assert "already_reached_goal" in body
+    assert "required_contribution" in body
+    assert "total_contributions" in body
+    assert "total_growth" in body
+    assert "projection" in body
+
+    first_projection = body["projection"][0]
+
+    assert "age" in first_projection
+    assert "balance" in first_projection
+    assert "contributions" in first_projection
+    assert "growth" in first_projection
 
 
 def test_calculate_pension_invalid_retirement_age(client):
@@ -87,11 +87,11 @@ def test_goal_invalid_retirement_age(client):
         "current_balance": 100000,
         "target_amount": 5000000,
         "annual_growth_rate": 8,
-        "contribution_frequency": ContributionFrequency.MONTHLY.value,
+        "contribution_frequency": ContributionFrequency.ANNUAL.value,
     }
 
     response = client.post(
-        "/pension/goal",
+        "/pension/calculate_contribution",
         json=payload,
     )
 
@@ -119,7 +119,7 @@ def test_goal_missing_required_field(client):
     }
 
     response = client.post(
-        "/pension/goal",
+        "/pension/calculate_contribution",
         json=payload,
     )
 
@@ -131,13 +131,13 @@ def test_invalid_contribution_frequency(client):
         "current_age": 30,
         "retirement_age": 65,
         "current_balance": 100000,
-        "contribution_amount": 2000,
+        "target_amount": 5000000,
         "contribution_frequency": "weekly",
         "annual_growth_rate": 8,
     }
 
     response = client.post(
-        "/pension/calculate_pension",
+        "/pension/calculate_contribution",
         json=payload,
     )
 
@@ -149,13 +149,13 @@ def test_negative_current_balance(client):
         "current_age": 30,
         "retirement_age": 65,
         "current_balance": -100,
-        "contribution_amount": 2000,
-        "contribution_frequency": ContributionFrequency.MONTHLY.value,
+        "target_amount": 5000000,
         "annual_growth_rate": 8,
+        "contribution_frequency": ContributionFrequency.ANNUAL.value,
     }
 
     response = client.post(
-        "/pension/calculate_pension",
+        "/pension/calculate_contribution",
         json=payload,
     )
 
@@ -169,54 +169,33 @@ def test_negative_target_amount(client):
         "current_balance": 100000,
         "target_amount": -5000,
         "annual_growth_rate": 8,
-        "contribution_frequency": ContributionFrequency.MONTHLY.value,
+        "contribution_frequency": ContributionFrequency.ANNUAL.value,
     }
 
     response = client.post(
-        "/pension/goal",
+        "/pension/calculate_contribution",
         json=payload,
     )
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_CONTENT
 
 
-def test_goal_already_reached(client):
-    payload = {
-        "current_age": 30,
-        "retirement_age": 65,
-        "current_balance": 6000000,
-        "target_amount": 5000000,
-        "annual_growth_rate": 8,
-        "contribution_frequency": ContributionFrequency.MONTHLY.value,
-    }
-
-    response = client.post(
-        "/pension/goal",
-        json=payload,
-    )
-
-    assert response.status_code == status.HTTP_200_OK
-
-    body = response.json()
-
-    assert body["already_reached_goal"] is True
-    assert body["required_contribution"] == 0
-
-
-def test_projection_contains_required_fields(client):
+def test_goal_projection_contains_required_fields(client):
     payload = {
         "current_age": 30,
         "retirement_age": 65,
         "current_balance": 100000,
-        "contribution_amount": 2000,
-        "contribution_frequency": ContributionFrequency.MONTHLY.value,
+        "target_amount": 5000000,
         "annual_growth_rate": 8,
+        "contribution_frequency": ContributionFrequency.ANNUAL.value,
     }
 
     response = client.post(
-        "/pension/calculate_pension",
+        "/pension/calculate_contribution",
         json=payload,
     )
+
+    assert response.status_code == status.HTTP_200_OK
 
     body = response.json()
 

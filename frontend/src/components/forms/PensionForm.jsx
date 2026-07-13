@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Button from "../common/Button";
@@ -9,12 +10,18 @@ import { pensionSchema } from "../../schemas/pensionSchema";
 import { calculatePension } from "../../services/pensionService";
 
 function PensionForm({ onCalculate, defaultValues }) {
+  const [useTargetAmount, setUseTargetAmount] = useState(
+    defaultValues?.useTargetAmount ?? false
+  );
+
   const formDefaults = defaultValues
     ? {
         currentAge: String(defaultValues.currentAge),
         retirementAge: String(defaultValues.retirementAge),
         currentBalance: String(defaultValues.currentBalance),
-        contributionAmount: String(defaultValues.contributionAmount),
+        pensionValue: String(
+          defaultValues.pensionValue ?? ""
+        ),
         annualGrowthRate: String(defaultValues.annualGrowthRate),
       }
     : undefined;
@@ -30,8 +37,18 @@ function PensionForm({ onCalculate, defaultValues }) {
 
   const onSubmit = async (data) => {
     try {
-      const result = await calculatePension(data);
-      onCalculate(data, result);
+      const result = await calculatePension(
+        data,
+        useTargetAmount
+      );
+      console.log(result);
+      onCalculate(
+        {
+          ...data,
+          useTargetAmount,
+        },
+        result
+      );
     } catch (error) {
       console.error(error);
     }
@@ -68,12 +85,45 @@ function PensionForm({ onCalculate, defaultValues }) {
           {...register("currentBalance")}
         />
 
+        <div className="flex items-center gap-2">
+          <input
+            id="useTargetAmount"
+            type="checkbox"
+            checked={useTargetAmount}
+            onChange={(e) =>
+              setUseTargetAmount(e.target.checked)
+            }
+            className="h-4 w-4 rounded border-slate-300 text-sky-900 focus:ring-sky-900"
+          />
+
+          <label
+            htmlFor="useTargetAmount"
+            className="text-sm text-slate-700"
+          >
+            I would rather provide a specific end goal for my pension.
+          </label>
+        </div>
+
         <Input
-          label="Annual Contribution"
-          name="contributionAmount"
+          label={
+            useTargetAmount
+              ? "Target Retirement Amount"
+              : "Annual Contribution"
+          }
+          name="pensionValue"
           type="number"
-          error={errors.contributionAmount}
-          {...register("contributionAmount")}
+          error={
+            errors.pensionValue && {
+              ...errors.pensionValue,
+              message: errors.pensionValue.message.replace(
+                "Pension value",
+                useTargetAmount
+                  ? "Target retirement amount"
+                  : "Annual contribution"
+              ),
+            }
+          }
+          {...register("pensionValue")}
         />
 
         <Input

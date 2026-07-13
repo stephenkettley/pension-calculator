@@ -35,7 +35,7 @@ def calculate(
 
 
 @router.post(
-    "/goal",
+    "/calculate_contribution",
     response_model=RetirementGoalResponse,
 )
 def calculate_retirement_goal_endpoint(

@@ -111,9 +111,3 @@ async def general_exception_handler(
             },
         },
     )
-
-
-@app.get("/")
-def root():
-    logger.info("Root endpoint accessed")
-    return {"message": "Welcome to the production pension calculator API."}

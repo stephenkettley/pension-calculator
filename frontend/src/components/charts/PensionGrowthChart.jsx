@@ -22,7 +22,16 @@ ChartJS.register(
   Filler
 );
 
-function PensionGrowthChart({ projection }) {
+export default function PensionGrowthChart({ projection = [] }) {
+  // Don't attempt to render a chart if no projection data exists
+  if (!projection.length) {
+    return (
+      <div className="flex h-96 items-center justify-center rounded-lg border border-dashed text-slate-500">
+        Projection data is not available.
+      </div>
+    );
+  }
+
   const chartData = {
     labels: projection.map((item) => item.age),
 
@@ -31,23 +40,23 @@ function PensionGrowthChart({ projection }) {
         label: "Your Contributions",
         data: projection.map((item) => item.contributions),
 
+        borderColor: "#3b82f6",
+        backgroundColor: "rgba(59, 130, 246, 0.2)",
+
         fill: true,
         tension: 0.4,
         borderWidth: 2,
-
-        borderColor: "#3b82f6",
-        backgroundColor: "rgba(59, 130, 246, 0.2)",
       },
       {
         label: "Investment Growth",
         data: projection.map((item) => item.growth),
 
+        borderColor: "#22c55e",
+        backgroundColor: "rgba(34, 197, 94, 0.2)",
+
         fill: true,
         tension: 0.4,
         borderWidth: 2,
-
-        borderColor: "#22c55e",
-        backgroundColor: "rgba(34, 197, 94, 0.2)",
       },
     ],
   };
@@ -79,13 +88,13 @@ function PensionGrowthChart({ projection }) {
           label: (context) => {
             const point = projection[context.dataIndex];
 
-            if (context.dataset.label === "Your Contributions") {
-              return `Your Contributions: ${formatCurrency(
-                point.contributions
-              )}`;
-            }
-
-            return `Investment Growth: ${formatCurrency(point.growth)}`;
+            return context.dataset.label === "Your Contributions"
+              ? `Your Contributions: ${formatCurrency(
+                  point.contributions
+                )}`
+              : `Investment Growth: ${formatCurrency(
+                  point.growth
+                )}`;
           },
         },
       },
@@ -118,9 +127,10 @@ function PensionGrowthChart({ projection }) {
 
   return (
     <div className="h-96 w-full">
-      <Line data={chartData} options={chartOptions} />
+      <Line
+        data={chartData}
+        options={chartOptions}
+      />
     </div>
   );
 }
-
-export default PensionGrowthChart;
