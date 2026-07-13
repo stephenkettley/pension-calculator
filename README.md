@@ -13,8 +13,8 @@ Backend API Documentation: https://pension-calculator-api-b1de48aa93f1.herokuapp
 
 ## Features
 - Retirement projection calculator
-- Inflation-adjusted purchasing power
-- Annual contribution tracking
+- Annual contribution calculator
+- Annual contribution and growth tracking
 - Interactive growth chart
 - Client & server validation
 - Fully deployed frontend and backend
@@ -53,11 +53,7 @@ To keep the scope focused and the calculator simple to use, the following assump
 <br><br>
 
 ## Time Spent
-<<<<<<< HEAD
-Approximately **6–8 hours**.
-=======
-Approximately **6 hours**.
->>>>>>> origin/main
+**Approximately** 7 hours.
 
 - **3–4 hours** were spent developing the core full-stack pension calculator, including the required functionality, API, frontend, validation, and retirement calculations.
 - **2–4 additional hours** were invested in taking the project beyond the minimum requirements to better demonstrate my engineering approach. This included:
@@ -66,11 +62,7 @@ Approximately **6 hours**.
   - Setting up automated CI/CD and cloud deployments.
   - Expanding automated testing.
   - Refining the UI/UX and overall user experience.
-<<<<<<< HEAD
-  - Writing comprehensive documentation, including a detailed README and local setup instructions.
-=======
   - Writing comprehensive documentation, including a detailed README.
->>>>>>> origin/main
   - Using AI as a review and productivity tool to challenge implementation decisions, identify potential improvements, and help polish the project to a production-ready standard.
 
 The core project requirements were completed within the expected timeframe. The additional time was intentionally invested to produce a more complete, maintainable, and professional project that better reflects how I approach software engineering beyond simply delivering the minimum functionality.
