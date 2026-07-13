@@ -2,7 +2,9 @@ from pension_api.models.responses import YearProjection
 from pension_api.services.goal_calculator import (
     calculate_required_contribution,
 )
+from pension_api.models.requests import ContributionFrequency, RetirementGoalRequest
 
+import pytest
 
 def test_calculate_required_contribution(default_goal_request):
     request = default_goal_request.model_copy(deep=True)
@@ -110,3 +112,41 @@ def test_goal_response_types(default_goal_request):
     )
 
     assert all(isinstance(item, YearProjection) for item in result.projection)
+
+
+def test_goal_calculator_expected_output():
+    request = RetirementGoalRequest(
+        current_age=30,
+        retirement_age=40,
+        current_balance=0,
+        target_amount=1_000_000,
+        annual_growth_rate=10,
+        contribution_frequency=ContributionFrequency.ANNUAL,
+    )
+
+    result = calculate_required_contribution(request)
+
+    assert result.years_to_retirement == 10
+
+    assert result.required_contribution == pytest.approx(
+        62745,
+        rel=0.05,
+    )
+
+    assert result.total_contributions == pytest.approx(
+        627450,
+        rel=0.05,
+    )
+
+    assert result.total_growth > 300000
+
+    assert len(result.projection) == 10
+
+    final_year = result.projection[-1]
+
+    assert final_year.age == 40
+
+    assert final_year.balance == pytest.approx(
+        1_000_000,
+        rel=0.02,
+    )
