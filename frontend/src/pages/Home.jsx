@@ -26,12 +26,13 @@ function Home() {
         <div className="w-full">
           <h1 className="mb-1 text-center text-8xl tracking-tight font-delight">
             <span
-              className="font-bold bg-gradient-to-r from-[#31445C] to-[#9BC3D8] bg-clip-text text-transparent"
+              className="font-bold"
+              style={{ color: '#F04120' }}
             >
               Pension
             </span>
        
-            <span className="font-normal text-black">Pearl</span>
+            <span className="font-normal text-[#31445C]">Pearl</span>
           </h1>
 
           <h1 className="mb-8 text-center text-3xl tracking-tight font-delight font-normal">
