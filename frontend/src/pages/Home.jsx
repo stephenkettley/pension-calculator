@@ -4,8 +4,8 @@ import PensionForm from "../components/forms/PensionForm";
 import PensionResults from "../components/results/PensionResults";
 
 function Home() {
-  const [inputs, setInputs] = useState(null);
-  const [calculation, setCalculation] = useState(null);
+  const [inputs, setInputs] = useState(null); // these are tracked in high level page because they feed to form and results
+  const [calculation, setCalculation] = useState(null); // this controls view of form or results
 
   const handleCalculation = (formData, result) => {
     setInputs(formData);
@@ -41,6 +41,7 @@ function Home() {
             </p>
           )}
 
+          {/* conditional home page rendering */}
           {!calculation ? (
             <PensionForm
               onCalculate={handleCalculation}

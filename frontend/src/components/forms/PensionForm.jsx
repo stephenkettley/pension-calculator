@@ -8,6 +8,7 @@ import Input from "../common/Input";
 import { pensionSchema } from "../../schemas/pensionSchema";
 import { calculatePension } from "../../services/pensionService";
 
+
 function PensionForm({ onCalculate, defaultValues }) {
   const formDefaults = defaultValues
     ? {
@@ -21,11 +22,11 @@ function PensionForm({ onCalculate, defaultValues }) {
 
   const {
     register,
-    handleSubmit,
+    handleSubmit, // provides validation
     formState: { errors },
   } = useForm({
     resolver: zodResolver(pensionSchema),
-    defaultValues: formDefaults,
+    defaultValues: formDefaults, // preserve state of previous inputs
   });
 
   const onSubmit = async (data) => {

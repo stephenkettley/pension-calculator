@@ -2,6 +2,7 @@ from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
+# centralise settings for app
 class Settings(BaseSettings):
     app_name: str = "Pension Calculator API"
     app_version: str = "1.0.0"
