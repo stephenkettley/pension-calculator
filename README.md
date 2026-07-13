@@ -1,4 +1,5 @@
-<img width="1500" height="600" alt="pension-pearl-logo" src="https://github.com/user-attachments/assets/7eeded01-47d0-4c2d-b378-d26f10e915bc" />
+<img width="1500" height="600" alt="pp-logo" src="https://github.com/user-attachments/assets/0fe4ab47-c7a6-4599-bdab-6d7fb37c5fcf" />
+
 <br><br>
 
 ## Project Overview
@@ -52,7 +53,11 @@ To keep the scope focused and the calculator simple to use, the following assump
 <br><br>
 
 ## Time Spent
+<<<<<<< HEAD
 Approximately **6–8 hours**.
+=======
+Approximately **6 hours**.
+>>>>>>> origin/main
 
 - **3–4 hours** were spent developing the core full-stack pension calculator, including the required functionality, API, frontend, validation, and retirement calculations.
 - **2–4 additional hours** were invested in taking the project beyond the minimum requirements to better demonstrate my engineering approach. This included:
@@ -61,7 +66,11 @@ Approximately **6–8 hours**.
   - Setting up automated CI/CD and cloud deployments.
   - Expanding automated testing.
   - Refining the UI/UX and overall user experience.
+<<<<<<< HEAD
   - Writing comprehensive documentation, including a detailed README and local setup instructions.
+=======
+  - Writing comprehensive documentation, including a detailed README.
+>>>>>>> origin/main
   - Using AI as a review and productivity tool to challenge implementation decisions, identify potential improvements, and help polish the project to a production-ready standard.
 
 The core project requirements were completed within the expected timeframe. The additional time was intentionally invested to produce a more complete, maintainable, and professional project that better reflects how I approach software engineering beyond simply delivering the minimum functionality.
