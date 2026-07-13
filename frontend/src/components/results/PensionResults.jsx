@@ -8,7 +8,7 @@ function PensionResults({ data, inputs, onReset }) {
     return null;
   }
 
-  // Calculate percentages and ensure they add up to 100%
+
   const contributionPercentage = Math.round(
     (data.total_contributions / data.projected_balance) * 100
   );
