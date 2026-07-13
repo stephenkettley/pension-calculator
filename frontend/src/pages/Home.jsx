@@ -17,7 +17,7 @@ function Home() {
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-200 via-white to-sky-900">
+    <main className="min-h-screen bg-gradient-to-b from-white via-[#EDF8FD] to-[#FDE8E2]">
       <div
         className={`mx-auto flex min-h-screen items-center px-6 py-16 ${
           calculation ? "max-w-7xl" : "max-w-3xl"
@@ -25,7 +25,12 @@ function Home() {
       >
         <div className="w-full">
           <h1 className="mb-1 text-center text-8xl tracking-tight font-delight">
-            <span className="font-bold text-sky-900">Pension</span>
+            <span
+              className="font-bold bg-gradient-to-r from-[#31445C] to-[#9BC3D8] bg-clip-text text-transparent"
+            >
+              Pension
+            </span>
+       
             <span className="font-normal text-black">Pearl</span>
           </h1>
 

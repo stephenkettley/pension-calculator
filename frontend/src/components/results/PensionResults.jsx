@@ -1,6 +1,7 @@
 import { formatCurrency } from "../../utils/formatters";
 
 import PensionGrowthChart from "../charts/PensionGrowthChart";
+import Button from "../common/Button";
 import Card from "../common/Card";
 
 function PensionResults({ data, inputs, onReset }) {
@@ -66,24 +67,11 @@ function PensionResults({ data, inputs, onReset }) {
             </div>
           </div>
 
-          <button
+          <Button
             onClick={onReset}
-            className="
-              mt-6
-              w-full
-              rounded-lg
-              bg-sky-900
-              px-4
-              py-2
-              text-sm
-              font-semibold
-              text-white
-              transition
-              hover:bg-slate-900
-            "
           >
             Adjust Inputs
-          </button>
+          </Button>
         </div>
 
         {/* Results */}
