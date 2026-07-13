@@ -125,8 +125,10 @@ If given additional time, I would continue evolving the application from a retir
 <br><br>
 
 ## Additional Screenshots Of Working Application
-<img width="1662" height="981" alt="image" src="https://github.com/user-attachments/assets/da0d5dfe-33a8-4d2b-a4e2-0ee3221765ee" />
+<img width="1674" height="980" alt="image" src="https://github.com/user-attachments/assets/e81fadb0-5fd4-4330-a49f-25b42c4cc6f5" />
+
 <br><br>
-<img width="1668" height="984" alt="image" src="https://github.com/user-attachments/assets/b955e4a2-4ff7-484e-ae51-a971cd199892" />
+<img width="1677" height="980" alt="image" src="https://github.com/user-attachments/assets/4d8c6a6c-896e-41ea-8316-880e8a2e73d4" />
+
 
 
