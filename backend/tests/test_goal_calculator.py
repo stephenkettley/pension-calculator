@@ -1,4 +1,3 @@
-
 from pension_api.models.responses import YearProjection
 from pension_api.services.goal_calculator import (
     calculate_required_contribution,
