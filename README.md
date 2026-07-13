@@ -103,7 +103,7 @@ Throughout the project, I used AI to:
 
 I intentionally **accepted** suggestions that kept the solution simple, production-ready, and aligned with good software engineering principles. I **rejected** suggestions that unnecessarily increased complexity or expanded the project beyond the intended scope of the assessment.
 
-The primary tools used were **ChatGPT** for engineering discussions, code review, configuration assistance, and UI refinement, **Cursor** for selective development assistance and **CodeRabbit** for pull request and code review
+The primary tools used were **ChatGPT** for engineering discussions, code review, configuration assistance, and UI refinement, **Cursor** for selective development assistance and **CodeRabbit** for pull request and code review.
 
 The area where AI was used the least was the **backend implementation and business logic**, as this is one of my strongest technical areas. The API design, validation, calculations, and overall backend architecture were implemented by myself, with AI serving primarily as a reviewer rather than the author of the solution.
 
