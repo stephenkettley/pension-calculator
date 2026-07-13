@@ -10,7 +10,7 @@ class Settings(BaseSettings):
     environment: str = "production"
 
     frontend_url: str = Field(
-        default="http://localhost:5173",
+        default="https://pension-calculator-pearl.vercel.app/",
     )
 
     model_config = SettingsConfigDict(

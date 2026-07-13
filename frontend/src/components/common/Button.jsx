@@ -9,7 +9,6 @@ function Button({
         className="
           w-full
           rounded-xl
-          bg-slate-900
           px-6
           py-3.5
           text-base
@@ -18,14 +17,18 @@ function Button({
           shadow-lg
           transition-all
           duration-200
+          bg-sky-900
+          hover:bg-slate-900
           hover:-translate-y-0.5
-          hover:bg-orange-400
           hover:shadow-xl
           active:translate-y-0
           disabled:cursor-not-allowed
           disabled:opacity-50
         "
         {...props}
+   
+   
+   
       >
         {children}
       </button>
