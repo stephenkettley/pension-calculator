@@ -1,10 +1,11 @@
+import pytest
+
+from pension_api.models.requests import ContributionFrequency, RetirementGoalRequest
 from pension_api.models.responses import YearProjection
 from pension_api.services.goal_calculator import (
     calculate_required_contribution,
 )
-from pension_api.models.requests import ContributionFrequency, RetirementGoalRequest
 
-import pytest
 
 def test_calculate_required_contribution(default_goal_request):
     request = default_goal_request.model_copy(deep=True)
