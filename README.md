@@ -27,7 +27,7 @@ Backend API Documentation: https://pension-calculator-api-b1de48aa93f1.herokuapp
 ## Engineering Decisions
 Although this project is intentionally small in scope, it was designed using many of the same engineering principles I would apply when building a larger production system.
 
-- Separated business logic from API routes to improve maintainability, readability, and testability.
+- Separated business logic from API routes to improve maintainability, readability, and testability, as well as allowing it to be consumed by other interfaces in the future if required.
 - Kept the frontend stateless by performing all financial calculations on the backend, ensuring a single source of truth for business logic.
 - Implemented strong typing throughout both the frontend and backend to improve reliability and reduce runtime errors.
 - Applied validation at multiple layers, including both client-side and server-side validation, to ensure data integrity.
@@ -35,7 +35,6 @@ Although this project is intentionally small in scope, it was designed using man
 - Deployed the frontend and backend independently to better reflect a modern production architecture.
 - Structured the project into clear layers with a separation between presentation, API, business logic, and configuration.
 - Prioritised readable, maintainable code over overly clever implementations, making the project easier to extend and test.
-- Designed the application so that business logic remains reusable and independent of the API layer, allowing it to be consumed by other interfaces in the future if required.
 <br><br>
 
 ## Assumptions
@@ -46,16 +45,15 @@ To keep the scope focused and the calculator simple to use, the following assump
 - Contributions remain **constant** throughout the investment period.
 - The annual investment growth rate remains **constant** over the investment period.
 - Investment growth is **compounded monthly** using an effective monthly growth rate.
-- Inflation is assumed to average **5% per year** when estimating the purchasing power of the projected retirement balance.
 - Contributions are assumed to be made at the **end of each month**.
 - Taxes, investment fees, employer contributions, salary increases, and legislative changes are **not included**.
 - The calculator is intended as an **educational retirement planning tool** to help users understand long-term investment growth rather than provide personalised financial advice.
 <br><br>
 
 ## Time Spent
-**Approximately** 7 hours.
+**Approximately** 8 hours. 
 
-- **3–4 hours** were spent developing the core full-stack pension calculator, including the required functionality, API, frontend, validation, and retirement calculations.
+- **3–4 hours** were spent developing the core full-stack pension calculator, including planning, designing the system and developing the required functionality, API, frontend, validation, and retirement calculations.
 - **2–4 additional hours** were invested in taking the project beyond the minimum requirements to better demonstrate my engineering approach. This included:
   - Project setup and environment configuration.
   - Debugging and deployment issues encountered during development.
@@ -82,11 +80,7 @@ The core project requirements were completed within the expected timeframe. The 
 <br><br>
 
 ## Architecture Overview
-The application follows a simple client-server architecture.
-
-The React frontend is responsible for collecting user input, performing client-side validation and displaying the calculated results. Requests are sent to the FastAPI backend, where Pydantic validates incoming data before the calculation service performs all business logic.
-
-The backend returns structured JSON responses which are rendered into summary cards and interactive charts on the frontend.
+The application follows a simple client-server architecture. The React frontend is responsible for collecting user input, performing client-side validation and displaying the calculated results. Requests are sent to the FastAPI backend, where Pydantic validates incoming data before the calculation service performs all business logic. The backend returns structured JSON responses which are rendered into summary cards and interactive charts on the frontend.
 
 The project uses GitHub Actions to automate testing and deployment, with the backend hosted on **Heroku** and the frontend hosted on **Vercel**.
 <br><br>
@@ -98,23 +92,24 @@ Throughout the project, I used AI to:
 
 - Brainstorm and challenge design decisions before implementation.
 - Generate configuration snippets and boilerplate where appropriate.
-- Accelerate front-end styling and UI refinement.
+- Accelerate front-end styling and UI refinement. Also, to generate the graph as I have never used Chart.js before.
 - Suggest additional test cases and identify potential edge cases.
 - Review code for opportunities to improve readability, robustness, and maintainability.
 
-I intentionally **accepted** suggestions that kept the solution simple, production-ready, and aligned with good software engineering principles. I **rejected** suggestions that unnecessarily increased complexity or expanded the project beyond the intended scope of the assessment.
+When it came to using AI, I intentionally **accepted** suggestions that kept the solution simple, production-ready, and aligned with good software engineering principles. I **rejected** suggestions that unnecessarily increased complexity or expanded the project beyond the intended scope of the assessment.
 
 The primary tools used were **ChatGPT** for engineering discussions, code review, configuration assistance, and UI refinement, **Cursor** for selective development assistance and **CodeRabbit** for pull request and code review.
 
 The area where AI was used the least was the **backend implementation and business logic**, as this is one of my strongest technical areas. The API design, validation, calculations, and overall backend architecture were implemented by myself, with AI serving primarily as a reviewer rather than the author of the solution.
 
 All AI-generated suggestions were reviewed, understood, and adapted before being incorporated into the project.
+
+With more time I would love to have explored the use of a tool like **Playwright** for full end-to-end testing.
 <br><br>
 
 ## What I Would Do With More Time
 If given additional time, I would continue evolving the application from a retirement calculator into a more comprehensive retirement planning platform. Potential future enhancements include:
 
-- Explored the use of a tool like **Playwright** for full end-to-end testing.
 - AI-powered retirement planning assistance capable of explaining projections, answering retirement-related questions, and suggesting ways to achieve different financial goals.
 - More comprehensive front-end and back-end automated test coverage, including end-to-end browser testing.
 - User authentication and personal accounts.
