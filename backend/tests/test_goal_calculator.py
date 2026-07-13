@@ -1,4 +1,3 @@
-import pytest
 
 from pension_api.models.responses import YearProjection
 from pension_api.services.goal_calculator import (
@@ -28,10 +27,7 @@ def test_goal_already_reached(default_goal_request):
     assert result.required_contribution == 0
     assert result.total_contributions == 0
 
-    assert all(
-        year.contributions == 0
-        for year in result.projection
-    )
+    assert all(year.contributions == 0 for year in result.projection)
 
 
 def test_calculate_required_contribution_with_zero_balance(
@@ -76,10 +72,7 @@ def test_projection_contains_one_entry_per_year(
 
     result = calculate_required_contribution(request)
 
-    assert (
-        len(result.projection)
-        == result.years_to_retirement
-    )
+    assert len(result.projection) == result.years_to_retirement
 
     first = result.projection[0]
 
@@ -117,7 +110,4 @@ def test_goal_response_types(default_goal_request):
         list,
     )
 
-    assert all(
-        isinstance(item, YearProjection)
-        for item in result.projection
-    )
+    assert all(isinstance(item, YearProjection) for item in result.projection)

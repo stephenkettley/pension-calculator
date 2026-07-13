@@ -37,7 +37,6 @@ app.include_router(pension.router)
 app.include_router(health.router)
 
 
-
 # custom pension related exceptions
 @app.exception_handler(PensionAPIException)
 async def pension_exception_handler(
@@ -112,6 +111,3 @@ async def general_exception_handler(
             },
         },
     )
-
-
-
