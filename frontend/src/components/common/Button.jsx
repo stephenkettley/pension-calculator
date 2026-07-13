@@ -18,7 +18,7 @@ function Button({
           transition-all
           duration-200
           bg-[#31445C]
-          hover:bg-[#9BC3D8]
+          hover:bg-[#3B5370]
           hover:-translate-y-0.5
           hover:shadow-xl
           active:translate-y-0
