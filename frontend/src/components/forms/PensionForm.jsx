@@ -85,6 +85,7 @@ function PensionForm({ onCalculate, defaultValues }) {
           {...register("currentBalance")}
         />
 
+
         <div className="flex items-center gap-2">
           <input
             id="useTargetAmount"
